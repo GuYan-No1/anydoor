@@ -7,10 +7,10 @@
     "lint": "eslint ./src",
     "fix": "eslint --fix"
   },
-  "pre-commit":[
-      "fix",
-      "lint"
-    ],
+  "pre-commit": [
+    "fix",
+    "lint"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GuYan-No1/anydoor.git"
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/GuYan-No1/anydoor#readme",
   "devDependencies": {
     "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1"
   }
 }
