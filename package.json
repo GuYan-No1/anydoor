@@ -1,0 +1,18 @@
+{
+  "name": "node_actual_combat",
+  "version": "1.0.0",
+  "description": "node_ actual_combat  Node JS Static Web server",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuYan-No1/anydoor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuYan-No1/anydoor/issues"
+  },
+  "homepage": "https://github.com/GuYan-No1/anydoor#readme"
+}
