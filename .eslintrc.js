@@ -4,7 +4,8 @@ module.exports = {
       "commonjs":true,
         "node": true
     },
-    "extends": "eslint:recommended",
+  "extends": "eslint:recommended",
+  "parser": "babel-eslint",
     "parserOptions": {
       "ecmaVersion": 2016,
       "sourceType": "script"
