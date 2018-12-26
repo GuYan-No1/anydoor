@@ -7,14 +7,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "window",
-            "program": "${workspaceFolder}\\src\\app.js"
+            "name": "mac",
+            "program": "${workspaceFolder}/src/app.js"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "mac",
-            "program": "${workspaceFolder}/src/app.js"
+            "name": "win",
+            "program": "${workspaceFolder}\\src\\app.js"
         }
     ]
 }
