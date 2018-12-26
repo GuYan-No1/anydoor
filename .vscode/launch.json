@@ -7,7 +7,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "启动程序",
+            "name": "window",
+            "program": "${workspaceFolder}\\src\\app.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "mac",
             "program": "${workspaceFolder}/src/app.js"
         }
     ]
