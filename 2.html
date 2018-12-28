@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>Canvas progress</title>
+    <style>
+        div{
+            height: 5000px;
+        }
+    #progress{
+        position: fixed;
+        right: 0;
+        bottom: 20%;
+        letter-spacing:2px
+    }
+    </style>
+</head>
+<body>
+    <div id='content'></div>
+    <canvas id="progress" width="90" height="90" class="progress"></canvas>
+	<script>
+        function format(x,y,r,begin,total,color){
+            let positionMap=[];
+            for (let i = 0; i < total; i++) {
+            positionMap[i]={
+                x:x+Math.sin(begin+2*Math.PI/total*i)*r,
+                y:y-Math.cos(begin+2*Math.PI/total*i)*r,
+                color
+                }
+            }
+            return positionMap;
+        }
+        function progress(id,current,all,isInverse=false,title){
+            var show = parseInt((current/all).toFixed(4)*100);
+            var c = document.getElementById(id),
+				process = 0,
+				ctx = c.getContext('2d'),
+                positionMap =format(45,45,40,Math.PI/6,18,'#877c6d');
+                function animate(a,b,d){
+				requestAnimationFrame(function (){
+                    ctx.clearRect(0,0,200,200);
+                    var index=null;
+                    process = process + 1;
+                    if(isInverse){
+                        index =18-Math.floor((process / 100*18));
+                        index >= positionMap.length?index=0:null;
+                    }else{
+                        index =Math.floor((process / 100*18));
+                        index >= positionMap.length?index=0:null;
+                    }
+                    positionMap[index].color = '#00BFFF';
+                    drawCricle(ctx, process,positionMap,title);
+                    if (process <= current/all*100) {
+						animate();
+					}
+				});
+			}
+			    function drawCricle(ctx, percent,moveData,title){
+                // 画灰色的圆
+                ctx.beginPath();
+                ctx.arc(45, 45, 35, 0, Math.PI*2);
+                ctx.closePath();
+                ctx.fillStyle = '#F6F6F6';
+                ctx.fill();
+				// 画进度环
+                ctx.beginPath();
+                ctx.lineWidth=2.5;
+                ctx.lineCap="round";
+				ctx.moveTo(45, 45);  
+				if(isInverse){
+                    ctx.arc(45, 45, 33.75, Math.PI * 5/3, Math.PI * (5/3 - 2 * percent / 100 ),true);
+                }else{
+                    ctx.arc(45, 45, 33.75, Math.PI * 5/3, Math.PI * (5/3 + 2 * percent / 100 ));
+                }
+                ctx.strokeStyle='#00BFFF';
+                ctx.stroke();
+				ctx.closePath();
+ 
+				// 画内填充圆
+				ctx.beginPath();
+				ctx.arc(45, 45, 32.5, 0, Math.PI * 2);
+				ctx.closePath();
+				ctx.fillStyle = '#fff';
+				ctx.fill();
+ 
+				// 填充文字
+				ctx.font = "8px 方正兰亭粗黑_GBK "; 
+				ctx.fillStyle = '#2F4F4F';
+				ctx.textAlign = 'center';  
+				ctx.textBaseline = 'middle'; 
+                ctx.fillText(title, 45, 30);
+                ctx.fillStyle = '#00BFFF';
+                ctx.font = "16px 方正兰亭粗黑_GBK";   
+                ctx.fillText(show+'%', 45, 55);
+                //遍历填充小圆点
+                moveData.forEach(item => {
+                    ctx.beginPath();
+                    ctx.moveTo(item.x, item.y);
+                    ctx.arc(item.x, item.y, 1, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fillStyle = item.color;
+                    ctx.fill();
+                });
+	      }
+			    animate();
+        }
+        window.onscroll = function(){
+            var allH = document.documentElement.offsetHeight || document.body.offsetHeight,
+                viewH = document.documentElement.clientHeight || document.body.clientHeight,
+                sTop = document.body.scrollTop ||document.documentElement.scrollTop;
+            progress('progress',sTop,allH-viewH,true,'距顶部')
+        }
+	</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title> Canvas 绘图</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="cloud">
+  <meta name="Keywords" content="H5 Canvas 绘图">
+  <meta name="Description" content="使用Html5 Canvas 绘制图形">
+ </head>
+	<style type="text/css">
+		#canvas{
+			border: 1px solid #000;
+			display:block;
+			margin: 50px auto;
+		}
+	</style>
+ <body>
+	<canvas id="canvas">
+			您的浏览器不支持Canvas
+	</canvas>
+ </body>
+ 
+<script type="text/javascript" src="http://www.w3school.com.cn/jquery/jquery.js"></script>  
+<script type="text/javascript">
+	//	得到 canvas 容器
+	var canvas = document.getElementById("canvas");
+	
+	// 初始化Canvas
+	function init_canvas(canvas_id){		
+		canvas.width = 800;
+		canvas.height = 785;
+		return canvas.getContext("2d");
+	}
+ 
+	//	渐变线绘制	矩形
+	function ph1(context){
+		//	设置线性填充	另外一个方法 createRadialGradient: 圆形填充
+		var gradient = context.createLinearGradient(0, 0, 400, 600);
+		//	设置渐变颜色
+		gradient.addColorStop(0.0, "red");
+		gradient.addColorStop(0.2, "orange");
+		gradient.addColorStop(0.4, "yellow");
+		gradient.addColorStop(0.6, "green");
+		gradient.addColorStop(0.9, "cyan");
+		gradient.addColorStop(1.0, "blue");
+		//gradient.addColorStop(1.0, "purple");
+		//	使用渐变线填充
+		context.fillStyle = gradient;
+		context.fillRect(0, 0, 800, 800);
+	}
+ 
+	//	图片填充绘制圆	墙
+	function ph2(context){
+		var bg_img = new Image();
+		bg_img.src = "images/20170205161408561.jpg";
+		bg_img.onload = function(){
+			//	四个参数 no-repeat：不重复 x-repeat：x轴重复 y-repate：y轴重复 repeat：x y 重复
+			var pattern = context.createPattern(bg_img, "repeat");
+			context.fillStyle = pattern;
+			context.fillRect(0, 0, 800, 800);
+		}
+		// 总结：filleStyle 可以是 color：颜色 gradient：渐变色	canvas：另外一个Canvas	video：视频
+	}
+ 
+	$(function(){
+		var context = init_canvas("canvas");
+		ph2(context);
+	});
+</script>
+</html>
